@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f5f7fa;
+            color: #243b53;
+        }
+
+        h1, .subtitle {
+            text-align: center;
+        }
+
+        .add-form {
+            max-width: 600px;
+            margin: 25px auto 35px;
+            padding: 22px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .add-form h2 {
+            margin-top: 0;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 14px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            color: white;
+            background: #0759a5;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #06447e;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .product {
+            padding: 16px;
+            background: white;
+            border: 1px solid #e0e4e8;
+            border-radius: 12px;
+            text-align: center;
+            overflow-wrap: anywhere;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        .product img {
+            width: 100%;
+            height: 190px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .no-image {
+            height: 190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f2f5;
+            color: #667085;
+            border-radius: 8px;
+        }
+
+        .product h2 {
+            font-size: 20px;
+        }
+
+        .price {
+            color: #16803c;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .product-id {
+            color: #667085;
+            font-size: 13px;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin: 30px 0;
+            color: #0759a5;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Product Display Application</h1>
+    <p class="subtitle">Explore our latest products</p>
+
+    <section class="add-form">
+        <h2>Add a New Product</h2>
+
+        <form action="/products/add" method="post">
+            <label for="name">Product Name</label>
+            <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="Example: Smart Watch"
+                maxlength="100"
+                required
+            >
+
+            <label for="price">Price (₹)</label>
+            <input
+                id="price"
+                type="number"
+                name="price"
+                placeholder="Example: 4500"
+                min="0.01"
+                step="0.01"
+                required
+            >
+
+            <label for="image_url">Image URL</label>
+            <input
+                id="image_url"
+                type="url"
+                name="image_url"
+                placeholder="Paste a public image URL"
+                maxlength="500"
+            >
+
+            <button type="submit">Add Product</button>
+        </form>
+    </section>
+
+    <h2>Available Products ({{ products|length }})</h2>
+
+    <div class="products">
+        {% for product in products %}
+        <article class="product">
+
+            {% if product.image_url %}
+            <img
+                src="{{ product.image_url }}"
+                alt="{{ product.name }}"
+                loading="lazy"
+            >
+            {% else %}
+            <div class="no-image">No image available</div>
+            {% endif %}
+
+            <p class="product-id">Product ID: {{ product.id }}</p>
+            <h2>{{ product.name }}</h2>
+            <p class="price">
+                ₹{{ "%.2f"|format(product.price) }}
+            </p>
+
+        </article>
+        {% else %}
+        <p>No products found. Add your first product above.</p>
+        {% endfor %}
+    </div>
+
+    <a class="back" href="/">← Back to Home</a>
+</body>
+</html>
