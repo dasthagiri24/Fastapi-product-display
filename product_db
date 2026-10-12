@@ -1,0 +1,68 @@
+CREATE DATABASE IF NOT EXISTS product_db;
+USE product_db;
+
+DROP TABLE IF EXISTS products;
+
+CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    image_url VARCHAR(500) NULL
+);
+
+INSERT INTO products (name, price, image_url) VALUES
+(
+    'Laptop', 70000.00,
+    'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500'
+),
+(
+    'iPhone', 87000.00,
+    'https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500'
+),
+(
+    'Headphones', 2500.00,
+    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'
+),
+(
+    'Smart Watch', 4500.00,
+    'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500'
+),
+(
+    'Camera', 35000.00,
+    'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=500'
+),
+(
+    'Running Shoes', 2500.00,
+    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500'
+),
+(
+    'Tablet', 22000.00,
+    'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500'
+),
+(
+    'Keyboard', 1800.00,
+    'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500'
+),
+(
+    'Gaming Mouse', 1200.00,
+    'https://images.unsplash.com/photo-1527814050087-3793815479db?w=500'
+),
+(
+    'Backpack', 1600.00,
+    'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500'
+),
+(
+    'Bluetooth Speaker', 3000.00,
+    'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500'
+),
+(
+    'Monitor', 12000.00,
+    'https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500'
+);
+
+SELECT COUNT(*) AS total_products
+FROM products;
+
+SELECT id, name, price, image_url
+FROM products
+ORDER BY id;
